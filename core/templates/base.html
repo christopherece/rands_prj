@@ -199,6 +199,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Initialize mobile sidenav
+            var elems = document.querySelectorAll('.sidenav');
+            var instances = M.Sidenav.init(elems, {
+                edge: 'left',
+                inDuration: 250,
+                outDuration: 200,
+                draggable: true
+            });
+            
             // Set active navigation link
             var currentPath = window.location.pathname;
             document.querySelectorAll('[data-active-url]').forEach(function(link) {
@@ -214,6 +223,16 @@
             // Initialize select elements
             var selects = document.querySelectorAll('select');
             M.FormSelect.init(selects);
+
+            // Close mobile menu when a link is clicked
+            document.querySelectorAll('.sidenav a').forEach(function(link) {
+                link.addEventListener('click', function() {
+                    var sidenav = M.Sidenav.getInstance(document.querySelector('.sidenav'));
+                    if (sidenav) {
+                        sidenav.close();
+                    }
+                });
+            });
         });
     </script>
     {% block extra_js %}{% endblock %}
