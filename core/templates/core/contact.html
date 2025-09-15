@@ -8,19 +8,44 @@
         margin-top: 2rem;
     }
     .contact-info i {
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
         display: block;
+        color: #ffd700;
     }
     .contact-method {
-        padding: 2rem;
+        padding: 2.5rem 1.5rem;
         text-align: center;
         height: 100%;
         transition: all 0.3s ease;
+        background-color: #1a1a1a;
+        border-radius: 8px;
+        border: 1px solid #333;
+    }
+    .contact-method h5 {
+        color: #ffd700;
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+    }
+    .contact-method p {
+        color: #fff;
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+    .contact-method a {
+        color: #fff;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+    .contact-method a:hover {
+        color: #ffd700;
+        text-decoration: underline;
     }
     .contact-method:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        transform: translateY(-8px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        border-color: #ffd700;
     }
     .map-container {
         overflow: hidden;
@@ -68,23 +93,25 @@
         <div class="row">
             <div class="col s12 m4">
                 <div class="card-panel contact-method">
+                    <i class="material-icons gold-text">schedule</i>
+                    <h5>Hours</h5>
+                    <p>Always open</p>
+                </div>
+            </div>
+            <div class="col s12 m4">
+                <div class="card-panel contact-method">
                     <i class="material-icons gold-text">location_on</i>
                     <h5>Our Location</h5>
-                    <p>123 Trade Center, Suva, Fiji</p>
+                    <p>25 Elevation Street, Flatbush<br>Manukau City, New Zealand, 2025</p>
                 </div>
             </div>
             <div class="col s12 m4">
                 <div class="card-panel contact-method">
-                    <i class="material-icons gold-text">email</i>
-                    <h5>Email Us</h5>
-                    <p><a href="mailto:info@dskarans.com" class="gold-text">info@dskarans.com</a></p>
-                </div>
-            </div>
-            <div class="col s12 m4">
-                <div class="card-panel contact-method">
-                    <i class="material-icons gold-text">phone</i>
-                    <h5>Call Us</h5>
-                    <p><a href="tel:+6791234567" class="gold-text">+679 123 4567</a></p>
+                    <i class="material-icons gold-text">contact_phone</i>
+                    <h5>Contact Info</h5>
+                    <p>Phone: <a href="tel:+6421549470" class="gold-text">021 549 470</a><br>
+                    Email: <a href="mailto:vikash_vinod@hotmail.com" class="gold-text">vikash_vinod@hotmail.com</a><br>
+                    Messenger: D&S Karans Limited</p>
                 </div>
             </div>
         </div>
@@ -183,74 +210,134 @@
 </div>
 
 <!-- FAQ Section -->
-<div class="section grey darken-4">
+<div class="section grey darken-4" style="padding: 4rem 0;">
     <div class="container">
         <div class="row">
             <div class="col s12 center">
-                <h4 class="gold-text">Frequently Asked Questions</h4>
-                <p class="flow-text">Find answers to common questions about our products and services.</p>
+                <h2 class="gold-text" style="font-size: 2.5rem; margin-bottom: 1rem; font-weight: 600;">Frequently Asked Questions</h2>
+                <p class="flow-text white-text" style="font-size: 1.3rem; margin-bottom: 3rem; max-width: 700px; margin-left: auto; margin-right: auto;">
+                    Find answers to common questions about our products and services. Can't find what you're looking for? 
+                    <a href="#contact" class="gold-text" style="text-decoration: underline;">Contact us</a> directly.
+                </p>
             </div>
         </div>
         
         <div class="row">
-            <div class="col s12 m6">
-                <ul class="collapsible">
+            <div class="col s12 m10 offset-m1">
+                <ul class="collapsible faq-accordion">
                     <li class="active">
-                        <div class="collapsible-header">
-                            <i class="material-icons gold-text">help_outline</i>
-                            What products do you import and distribute?
+                        <div class="collapsible-header" tabindex="0">
+                            <div class="faq-icon">
+                                <i class="material-icons gold-text">help_outline</i>
+                            </div>
+                            <div class="faq-question">
+                                <h5 class="white-text" style="margin: 0; font-weight: 500; font-size: 1.2rem;">What products do you import and distribute?</h5>
+                            </div>
+                            <i class="material-icons right gold-text">expand_more</i>
                         </div>
-                        <div class="collapsible-body">
-                            <p>We specialize in importing and distributing Kava from Fiji, Kava Filters, and Vermicelli from China. Our product range is carefully selected to ensure the highest quality for our customers.</p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="collapsible-header">
-                            <i class="material-icons gold-text">local_shipping</i>
-                            Do you offer international shipping?
-                        </div>
-                        <div class="collapsible-body">
-                            <p>Yes, we offer international shipping to most countries. Shipping costs and delivery times vary depending on your location. Please contact us for specific shipping information to your country.</p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="collapsible-header">
-                            <i class="material-icons gold-text">payment</i>
-                            What payment methods do you accept?
-                        </div>
-                        <div class="collapsible-body">
-                            <p>We accept various payment methods including bank transfers, credit/debit cards, and other secure online payment options. Specific payment terms can be discussed with our sales team.</p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="col s12 m6">
-                <ul class="collapsible">
-                    <li>
-                        <div class="collapsible-header">
-                            <i class="material-icons gold-text">store</i>
-                            Can I visit your showroom?
-                        </div>
-                        <div class="collapsible-body">
-                            <p>Yes, our showroom is open during business hours. We recommend scheduling an appointment in advance to ensure we can give you our full attention and answer all your questions.</p>
+                        <div class="collapsible-body" style="display: block;">
+                            <p class="white-text" style="font-size: 1.05rem; line-height: 1.7; margin: 0; padding: 0 1rem 1rem 0;">
+                                We specialize in importing and distributing premium Kava from Fiji, high-quality Kava Filters, 
+                                and Vermicelli from China. Our products are carefully selected to ensure the highest quality 
+                                and authenticity for our customers.
+                            </p>
                         </div>
                     </li>
                     <li>
-                        <div class="collapsible-header">
-                            <i class="material-icons gold-text">business</i>
-                            Are you looking for distributors?
+                        <div class="collapsible-header" tabindex="0">
+                            <div class="faq-icon">
+                                <i class="material-icons gold-text">local_shipping</i>
+                            </div>
+                            <div class="faq-question">
+                                <h5 class="white-text" style="margin: 0; font-weight: 500; font-size: 1.2rem;">Do you offer international shipping?</h5>
+                            </div>
+                            <i class="material-icons right gold-text">expand_more</i>
                         </div>
                         <div class="collapsible-body">
-                            <p>We're always interested in expanding our distribution network. If you're interested in becoming a distributor, please contact us with your business details and we'll be happy to discuss potential opportunities.</p>
+                            <p class="white-text" style="font-size: 1.05rem; line-height: 1.7; margin: 0; padding: 0 1rem 1rem 0;">
+                                Yes, we offer reliable international shipping to most countries. Shipping costs and delivery times 
+                                vary depending on your location. For specific shipping information to your country, please 
+                                <a href="#contact" class="gold-text" style="text-decoration: underline;">contact us</a> with your address details.
+                            </p>
                         </div>
                     </li>
                     <li>
-                        <div class="collapsible-header">
-                            <i class="material-icons gold-text">contact_support</i>
-                            How can I track my order?
+                        <div class="collapsible-header" tabindex="0">
+                            <div class="faq-icon">
+                                <i class="material-icons gold-text">payment</i>
+                            </div>
+                            <div class="faq-question">
+                                <h5 class="white-text" style="margin: 0; font-weight: 500; font-size: 1.2rem;">What payment methods do you accept?</h5>
+                            </div>
+                            <i class="material-icons right gold-text">expand_more</i>
                         </div>
                         <div class="collapsible-body">
-                            <p>Once your order has been shipped, you will receive a confirmation email with tracking information. You can use this information to track your package through our shipping partner's website.</p>
+                            <p class="white-text" style="font-size: 1.05rem; line-height: 1.7; margin: 0; padding: 0 1rem 1rem 0;">
+                                We offer multiple secure payment options for your convenience, including:
+                                <ul class="browser-default white-text" style="padding-left: 1.5rem; margin-top: 0.5rem;">
+                                    <li>Bank Transfers</li>
+                                    <li>Credit/Debit Cards (Visa, Mastercard, American Express)</li>
+                                    <li>Secure Online Payment Gateways</li>
+                                </ul>
+                                For specific payment terms or bulk order inquiries, please contact our sales team.
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header" tabindex="0">
+                            <div class="faq-icon">
+                                <i class="material-icons gold-text">store</i>
+                            </div>
+                            <div class="faq-question">
+                                <h5 class="white-text" style="margin: 0; font-weight: 500; font-size: 1.2rem;">Can I visit your showroom?</h5>
+                            </div>
+                            <i class="material-icons right gold-text">expand_more</i>
+                        </div>
+                        <div class="collapsible-body">
+                            <p class="white-text" style="font-size: 1.05rem; line-height: 1.7; margin: 0; padding: 0 1rem 1rem 0;">
+                                Absolutely! We welcome visitors to our showroom during business hours. To ensure we can provide 
+                                you with the best possible service and attention, we recommend scheduling an appointment in advance. 
+                                This way, we can prepare for your visit and have the right team members available to assist you.
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header" tabindex="0">
+                            <div class="faq-icon">
+                                <i class="material-icons gold-text">business</i>
+                            </div>
+                            <div class="faq-question">
+                                <h5 class="white-text" style="margin: 0; font-weight: 500; font-size: 1.2rem;">Are you looking for distributors?</h5>
+                            </div>
+                            <i class="material-icons right gold-text">expand_more</i>
+                        </div>
+                        <div class="collapsible-body">
+                            <p class="white-text" style="font-size: 1.05rem; line-height: 1.7; margin: 0; padding: 0 1rem 1rem 0;">
+                                We're continuously looking to expand our distribution network with partners who share our commitment 
+                                to quality and customer satisfaction. If you're interested in becoming an authorized distributor 
+                                of our products, we'd love to hear from you. Please send us your business details, including your 
+                                company profile and distribution territory, and our team will get back to you to discuss potential 
+                                partnership opportunities.
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header" tabindex="0">
+                            <div class="faq-icon">
+                                <i class="material-icons gold-text">contact_support</i>
+                            </div>
+                            <div class="faq-question">
+                                <h5 class="white-text" style="margin: 0; font-weight: 500; font-size: 1.2rem;">How can I track my order?</h5>
+                            </div>
+                            <i class="material-icons right gold-text">expand_more</i>
+                        </div>
+                        <div class="collapsible-body">
+                            <p class="white-text" style="font-size: 1.05rem; line-height: 1.7; margin: 0; padding: 0 1rem 1rem 0;">
+                                Once your order has been processed and shipped, you will receive a confirmation email containing 
+                                your tracking number and a direct link to track your package. You can use this information to 
+                                monitor your shipment's progress through our shipping partner's website. If you have any 
+                                questions about your order status, our customer support team is here to help.
+                            </p>
                         </div>
                     </li>
                 </ul>
@@ -258,6 +345,82 @@
         </div>
     </div>
 </div>
+
+<style>
+    .faq-accordion {
+        border: none;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    
+    .faq-accordion .collapsible-header {
+        background-color: #1a1a1a;
+        border-bottom: 1px solid #333;
+        padding: 1.2rem 1.5rem;
+        display: flex;
+        align-items: center;
+        transition: all 0.3s ease;
+    }
+    
+    .faq-accordion .collapsible-header:hover {
+        background-color: #222;
+    }
+    
+    .faq-accordion .collapsible-body {
+        background-color: #1a1a1a;
+        border-bottom: 1px solid #333;
+        padding: 0 2rem 1.5rem 4.5rem;
+    }
+    
+    .faq-accordion .collapsible-body p {
+        margin: 0.5rem 0 0;
+    }
+    
+    .faq-accordion .collapsible-header i.right {
+        margin-left: auto;
+        transition: transform 0.3s ease;
+    }
+    
+    .faq-accordion .collapsible-header.active i.right {
+        transform: rotate(180deg);
+    }
+    
+    .faq-icon {
+        margin-right: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        background-color: rgba(255, 215, 0, 0.1);
+        border-radius: 50%;
+    }
+    
+    .faq-question {
+        flex: 1;
+    }
+    
+    @media (max-width: 600px) {
+        .faq-accordion .collapsible-header {
+            padding: 1rem;
+        }
+        
+        .faq-accordion .collapsible-body {
+            padding: 0 1rem 1rem 3.5rem;
+        }
+        
+        .faq-icon {
+            width: 32px;
+            height: 32px;
+            margin-right: 0.75rem;
+        }
+        
+        .faq-accordion .collapsible-header h5 {
+            font-size: 1.1rem !important;
+        }
+    }
+</style>
 {% endblock %}
 
 {% block extra_js %}
