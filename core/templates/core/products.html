@@ -1,0 +1,233 @@
+{% extends 'base.html' %}
+
+{% block title %}Products - D&S Karans Ltd{% endblock %}
+
+{% block extra_css %}
+<style>
+    .sort-options {
+        margin-bottom: 2rem;
+    }
+    .sort-options .btn {
+        margin: 0 5px;
+    }
+    .active-sort {
+        background-color: var(--gold-dark) !important;
+        color: #000 !important;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Page Title -->
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <h1 class="gold-text">Our Products</h1>
+                <p class="flow-text">Discover our premium selection of imported goods</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Search and Filter Section -->
+<div class="section search-filter grey darken-4">
+    <div class="container">
+        <form method="get" action="{% url 'core:products' %}">
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <i class="material-icons prefix">search</i>
+                    <input type="text" id="search" name="q" value="{{ search_query }}" placeholder="Search products...">
+                </div>
+                <div class="input-field col s12 m4">
+                    <select name="category" onchange="this.form.submit()">
+                        <option value="" {% if not selected_category %}selected{% endif %}>All Categories</option>
+                        {% for category in categories %}
+                            <option value="{{ category.slug }}" 
+                                    {% if category.slug == selected_category %}selected{% endif %}>
+                                {{ category.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <label>Filter by Category</label>
+                </div>
+                <div class="input-field col s12 m2">
+                    <button type="submit" class="btn btn-gold waves-effect waves-light">
+                        <i class="material-icons left">filter_alt</i> Filter
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Sort Options -->
+<div class="section sort-options">
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <span class="grey-text text-lighten-1">Sort by:</span>
+                <a href="?{% if search_query %}q={{ search_query }}&{% endif %}{% if selected_category %}category={{ selected_category }}&{% endif %}sort=name" 
+                   class="btn btn-small waves-effect {% if sort_by == 'name' %}active-sort{% else %}grey darken-2{% endif %}">
+                    Name (A-Z)
+                </a>
+                <a href="?{% if search_query %}q={{ search_query }}&{% endif %}{% if selected_category %}category={{ selected_category }}&{% endif %}sort=price_asc" 
+                   class="btn btn-small waves-effect {% if sort_by == 'price_asc' %}active-sort{% else %}grey darken-2{% endif %}">
+                    Price (Low to High)
+                </a>
+                <a href="?{% if search_query %}q={{ search_query }}&{% endif %}{% if selected_category %}category={{ selected_category }}&{% endif %}sort=price_desc" 
+                   class="btn btn-small waves-effect {% if sort_by == 'price_desc' %}active-sort{% else %}grey darken-2{% endif %}">
+                    Price (High to Low)
+                </a>
+                <a href="?{% if search_query %}q={{ search_query }}&{% endif %}{% if selected_category %}category={{ selected_category }}&{% endif %}sort=newest" 
+                   class="btn btn-small waves-effect {% if sort_by == 'newest' %}active-sort{% else %}grey darken-2{% endif %}">
+                    Newest First
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Products Grid -->
+<div class="section">
+    <div class="container">
+        {% if products %}
+            <div class="row">
+                {% for product in page_obj %}
+                <div class="col s12 m6 l4">
+                    <div class="card">
+                        <div class="card-image">
+                            {% if product.image %}
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                            {% else %}
+                            <img src="https://via.placeholder.com/400x300?text=No+Image" alt="No image available">
+                            {% endif %}
+                            <span class="card-title">{{ product.name }}</span>
+                        </div>
+                        <div class="card-content">
+                            <p class="truncate">{{ product.description|truncatewords:20 }}</p>
+                            <p class="right-align">
+                                <strong class="gold-text">${{ product.price }}</strong>
+                            </p>
+                        </div>
+                        <div class="card-action">
+                            <a href="{{ product.get_absolute_url }}" class="btn btn-gold btn-block">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Pagination -->
+            {% if page_obj.has_other_pages %}
+            <div class="row">
+                <div class="col s12 center">
+                    <ul class="pagination">
+                        {% if page_obj.has_previous %}
+                            <li class="waves-effect">
+                                <a href="?page=1{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if sort_by %}&sort={{ sort_by }}{% endif %}">
+                                    <i class="material-icons">first_page</i>
+                                </a>
+                            </li>
+                            <li class="waves-effect">
+                                <a href="?page={{ page_obj.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if sort_by %}&sort={{ sort_by }}{% endif %}">
+                                    <i class="material-icons">chevron_left</i>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="disabled"><a href="#!"><i class="material-icons">first_page</i></a></li>
+                            <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+                        {% endif %}
+                        
+                        {% for num in page_obj.paginator.page_range %}
+                            {% if page_obj.number == num %}
+                                <li class="active gold">
+                                    <a href="#!">{{ num }}</a>
+                                </li>
+                            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                <li class="waves-effect">
+                                    <a href="?page={{ num }}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if sort_by %}&sort={{ sort_by }}{% endif %}">
+                                        {{ num }}
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% if page_obj.has_next %}
+                            <li class="waves-effect">
+                                <a href="?page={{ page_obj.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if sort_by %}&sort={{ sort_by }}{% endif %}">
+                                    <i class="material-icons">chevron_right</i>
+                                </a>
+                            </li>
+                            <li class="waves-effect">
+                                <a href="?page={{ page_obj.paginator.num_pages }}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if sort_by %}&sort={{ sort_by }}{% endif %}">
+                                    <i class="material-icons">last_page</i>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+                            <li class="disabled"><a href="#!"><i class="material-icons">last_page</i></a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+            {% endif %}
+            
+        {% else %}
+            <div class="row">
+                <div class="col s12 center">
+                    <div class="card-panel">
+                        <i class="large material-icons grey-text">search_off</i>
+                        <h4>No products found</h4>
+                        <p>We couldn't find any products matching your search criteria.</p>
+                        <a href="{% url 'core:products' %}" class="btn btn-gold waves-effect waves-light">
+                            View All Products
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Categories Section -->
+<div class="section grey darken-4">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 center">
+                <h3 class="gold-text">Browse by Category</h3>
+                <div class="divider"></div>
+            </div>
+        </div>
+        
+        <div class="row">
+            {% for category in categories %}
+            <div class="col s6 m4 l2">
+                <div class="card-panel center-align hoverable" style="padding: 10px; min-height: 120px; display: flex; flex-direction: column; justify-content: center;">
+                    <a href="{% url 'core:products_by_category' category.slug %}" class="gold-text">
+                        <i class="material-icons medium">category</i>
+                        <h6>{{ category.name }}</h6>
+                    </a>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col s12">
+                <p class="center-align">No categories available.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize Materialize select
+        var elems = document.querySelectorAll('select');
+        M.FormSelect.init(elems);
+    });
+</script>
+{% endblock %}

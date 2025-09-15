@@ -1,0 +1,369 @@
+{% extends 'base.html' %}
+
+{% block title %}About Us - D&S Karans Ltd{% endblock %}
+
+{% block extra_css %}
+<style>
+    .about-header {
+        position: relative;
+        height: 60vh;
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                    url('https://images.unsplash.com/photo-1556740713-96c2c744a533?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: white;
+        margin-bottom: 4rem;
+    }
+    
+    .about-header h1 {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+    }
+    
+    .section-title {
+        position: relative;
+        margin-bottom: 3rem;
+        text-align: center;
+    }
+    
+    .section-title:after {
+        content: '';
+        display: block;
+        width: 80px;
+        height: 3px;
+        background: linear-gradient(45deg, var(--gold-dark), var(--gold-light));
+        margin: 15px auto 0;
+    }
+    
+    .about-feature {
+        text-align: center;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        transition: all 0.3s ease;
+    }
+    
+    .about-feature:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .about-feature i {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(45deg, var(--gold-dark), var(--gold-light));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    
+    .team-member {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    
+    .team-member img {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 1rem;
+        border: 5px solid rgba(212, 175, 55, 0.3);
+    }
+    
+    .timeline {
+        position: relative;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    .timeline::after {
+        content: '';
+        position: absolute;
+        width: 6px;
+        background: linear-gradient(to bottom, var(--gold-dark), var(--gold-light));
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        margin-left: -3px;
+    }
+    
+    .timeline-container {
+        padding: 10px 40px;
+        position: relative;
+        width: 50%;
+        box-sizing: border-box;
+    }
+    
+    .timeline-container::after {
+        content: '';
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        right: -17px;
+        background: linear-gradient(45deg, var(--gold-dark), var(--gold-light));
+        border: 4px solid #121212;
+        top: 15px;
+        border-radius: 50%;
+        z-index: 1;
+    }
+    
+    .left {
+        left: 0;
+    }
+    
+    .right {
+        left: 50%;
+    }
+    
+    .left::before {
+        content: " ";
+        height: 0;
+        position: absolute;
+        top: 22px;
+        width: 0;
+        z-index: 1;
+        right: 30px;
+        border: medium solid #1e1e1e;
+        border-width: 10px 0 10px 10px;
+        border-color: transparent transparent transparent #1e1e1e;
+    }
+    
+    .right::before {
+        content: " ";
+        height: 0;
+        position: absolute;
+        top: 22px;
+        width: 0;
+        z-index: 1;
+        left: 30px;
+        border: medium solid #1e1e1e;
+        border-width: 10px 10px 10px 0;
+        border-color: transparent #1e1e1e transparent transparent;
+    }
+    
+    .right::after {
+        left: -16px;
+    }
+    
+    .timeline-content {
+        padding: 20px 30px;
+        background-color: #1e1e1e;
+        position: relative;
+        border-radius: 6px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    @media screen and (max-width: 768px) {
+        .timeline::after {
+            left: 31px;
+        }
+        
+        .timeline-container {
+            width: 100%;
+            padding-left: 70px;
+            padding-right: 25px;
+        }
+        
+        .timeline-container::before {
+            left: 60px;
+            border: medium solid #1e1e1e;
+            border-width: 10px 10px 10px 0;
+            border-color: transparent #1e1e1e transparent transparent;
+        }
+        
+        .left::after, .right::after {
+            left: 15px;
+        }
+        
+        .right {
+            left: 0%;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Header -->
+<header class="about-header">
+    <div class="container">
+        <h1 class="gold-text">Our Story</h1>
+        <p class="flow-text">From humble beginnings to becoming a trusted name in premium imports</p>
+    </div>
+</header>
+
+<!-- About Section -->
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m6">
+                <h2 class="section-title gold-text">Who We Are</h2>
+                <p class="flow-text">
+                    D&S Karans Ltd is a premier importer and distributor of high-quality products, 
+                    specializing in Kava from Fiji and other premium goods from around the world. 
+                    Established in 2022, we have quickly built a reputation for excellence, reliability, 
+                    and exceptional customer service.
+                </p>
+                <p>
+                    Our mission is to bring the finest products to our customers while maintaining 
+                    the highest standards of quality and sustainability. We work directly with trusted 
+                    suppliers to ensure that every product we distribute meets our rigorous standards.
+                </p>
+            </div>
+            <div class="col s12 m6">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1571902943201-8eb2d7e7b4e4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80" 
+                             alt="Our Warehouse" class="responsive-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Our Values -->
+<section class="section grey darken-4">
+    <div class="container">
+        <h2 class="section-title gold-text center">Our Values</h2>
+        <div class="row">
+            <div class="col s12 m4">
+                <div class="about-feature card-panel">
+                    <i class="material-icons">verified_user</i>
+                    <h5>Quality Assurance</h5>
+                    <p>We source only the highest quality products and conduct thorough quality checks to ensure customer satisfaction.</p>
+                </div>
+            </div>
+            <div class="col s12 m4">
+                <div class="about-feature card-panel">
+                    <i class="material-icons">public</i>
+                    <h5>Sustainable Sourcing</h5>
+                    <p>We are committed to ethical and sustainable sourcing practices that benefit both people and the planet.</p>
+                </div>
+            </div>
+            <div class="col s12 m4">
+                <div class="about-feature card-panel">
+                    <i class="material-icons">group</i>
+                    <h5>Customer Focus</h5>
+                    <p>Our customers are at the heart of everything we do. We strive to exceed expectations with every interaction.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Our Journey -->
+<section class="section">
+    <div class="container">
+        <h2 class="section-title gold-text center">Our Journey</h2>
+        
+        <div class="timeline">
+            <div class="timeline-container left">
+                <div class="timeline-content">
+                    <h5>2022</h5>
+                    <h6>Company Founded</h6>
+                    <p>D&S Karans Ltd was established with a vision to bring premium Kava from Fiji to international markets.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-container right">
+                <div class="timeline-content">
+                    <h5>Early 2023</h5>
+                    <h6>Expanded Product Line</h6>
+                    <p>Added Kava Filters to our product range to meet growing customer demand for quality kava accessories.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-container left">
+                <div class="timeline-content">
+                    <h5>Mid 2023</h5>
+                    <h6>New Distribution Channels</h6>
+                    <p>Established partnerships with retailers across the region, expanding our market reach.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-container right">
+                <div class="timeline-content">
+                    <h5>Late 2023</h5>
+                    <h6>Vermicelli Line Launched</h6>
+                    <p>Introduced premium Vermicelli from China, diversifying our product portfolio.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-container left">
+                <div class="timeline-content">
+                    <h5>2024</h5>
+                    <h6>Looking Ahead</h6>
+                    <p>Plans to expand into new markets and introduce more premium products to our catalog.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team Section -->
+<section class="section grey darken-4">
+    <div class="container">
+        <h2 class="section-title gold-text center">Meet Our Team</h2>
+        <p class="center-align flow-text" style="margin-bottom: 3rem;">The dedicated people behind our success</p>
+        
+        <div class="row">
+            <div class="col s12 m4">
+                <div class="team-member">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="John Doe">
+                    <h5>John Doe</h5>
+                    <p class="gold-text">Founder & CEO</p>
+                </div>
+            </div>
+            <div class="col s12 m4">
+                <div class="team-member">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Jane Smith">
+                    <h5>Jane Smith</h5>
+                    <p class="gold-text">Head of Operations</p>
+                </div>
+            </div>
+            <div class="col s12 m4">
+                <div class="team-member">
+                    <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Robert Johnson">
+                    <h5>Robert Johnson</h5>
+                    <p class="gold-text">Sales Director</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="section">
+    <div class="container center">
+        <h2 class="gold-text">Ready to Experience Our Products?</h2>
+        <p class="flow-text" style="margin-bottom: 2rem;">Browse our selection of premium imports or get in touch with our team for more information.</p>
+        <div class="row">
+            <div class="col s12 m6 offset-m3">
+                <div class="row">
+                    <div class="col s12 m6">
+                        <a href="{% url 'core:products' %}" class="btn btn-gold waves-effect waves-light btn-large">
+                            <i class="material-icons left">shopping_basket</i> Shop Now
+                        </a>
+                    </div>
+                    <div class="col s12 m6">
+                        <a href="{% url 'core:contact' %}" class="btn btn-outline-gold waves-effect waves-light btn-large">
+                            <i class="material-icons left">email</i> Contact Us
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize Materialize components
+        var elems = document.querySelectorAll('.materialboxed');
+        M.Materialbox.init(elems);
+    });
+</script>
+{% endblock %}

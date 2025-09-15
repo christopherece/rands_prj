@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - D&S Karans Ltd{% endblock %}
+
+{% block content %}
+<!-- Hero Section with Video Background -->
+<div class="hero-video" style="height: 80vh; position: relative; overflow: hidden;">
+    <video autoplay muted loop playsinline style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); min-width: 100%; min-height: 100%; width: auto; height: auto; z-index: 0;">
+        <source src="/static/videos/Heromovie2.mov" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1;"></div>
+    <div class="valign-wrapper" style="position: relative; z-index: 2; height: 100%;">
+        <div class="container">
+            <div class="hero-content center-align white-text">
+                <h1 class="gold-text" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">Welcome to D&S Karans Ltd</h1>
+                <p class="flow-text" style="font-size: 1.5rem; margin: 2rem 0;">Premium Importer & Distributor of Fine Kava and More</p>
+                <a href="{% url 'core:products' %}" class="btn btn-large waves-effect waves-light gold black-text" style="font-weight: 600; padding: 0 30px; height: 50px; line-height: 50px;">
+                    Explore Our Products
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Featured Products -->
+<section class="section container">
+    <div class="row">
+        <div class="col s12 center">
+            <h2 class="gold-text">Featured Products</h2>
+            <p class="flow-text">Discover our premium selection of imported goods</p>
+        </div>
+    </div>
+    
+    <div class="row">
+        {% for product in featured_products %}
+        <div class="col s12 m4">
+            <div class="card">
+                <div class="card-image">
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                    {% else %}
+                    <img src="https://via.placeholder.com/400x300?text=No+Image" alt="No image available">
+                    {% endif %}
+                    <span class="card-title">{{ product.name }}</span>
+                </div>
+                <div class="card-content">
+                    <p class="truncate">{{ product.description|truncatewords:20 }}</p>
+                    <p class="right-align">
+                        <strong class="gold-text">${{ product.price }}</strong>
+                    </p>
+                </div>
+                <div class="card-action">
+                    <a href="{{ product.get_absolute_url }}" class="btn btn-gold btn-block">View Details</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col s12">
+            <p class="center-align">No featured products available at the moment.</p>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <div class="row center">
+        <div class="col s12">
+            <a href="{% url 'core:products' %}" class="btn btn-gold waves-effect waves-light">
+                View All Products
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="section grey darken-4">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m6">
+                <h2 class="gold-text">Our Story</h2>
+                <p class="flow-text">
+                    Established in 2022, D&S Karans Ltd has quickly become a trusted name in the import and distribution 
+                    of premium products. We started with Kava from Fiji and have since expanded our portfolio to include 
+                    a variety of high-quality goods from around the world.
+                </p>
+                <a href="{% url 'core:about' %}" class="btn btn-gold waves-effect waves-light">
+                    Learn More About Us
+                </a>
+            </div>
+            <div class="col s12 m6">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="https://via.placeholder.com/600x400?text=Our+Products" alt="Our Products">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Categories -->
+<section class="section container">
+    <div class="row">
+        <div class="col s12 center">
+            <h2 class="gold-text">Our Categories</h2>
+            <p class="flow-text">Explore our wide range of premium products</p>
+        </div>
+    </div>
+    
+    <div class="row">
+        {% for category in categories %}
+        <div class="col s12 m6 l4">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title gold-text">{{ category.name }}</span>
+                    <p>{{ category.description|truncatewords:30 }}</p>
+                </div>
+                <div class="card-action
+                    <a href="{% url 'core:products_by_category' category.slug %}" class="gold-text">
+                        View Products
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col s12">
+            <p class="center-align">No categories available at the moment.</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="section grey darken-4">
+    <div class="container center">
+        <h2 class="gold-text">Ready to Experience the Best?</h2>
+        <p class="flow-text">Contact us today for wholesale inquiries or more information about our products.</p>
+        <a href="{% url 'core:contact' %}" class="btn btn-gold waves-effect waves-light">
+            Contact Us
+        </a>
+    </div>
+</section>
+{% endblock %}

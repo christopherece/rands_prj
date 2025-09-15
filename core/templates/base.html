@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}D&S Karans Ltd - Premium Importer & Distributor{% endblock %}</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    {% block extra_css %}{% endblock %}
+    <style>
+        /* Video Hero Section */
+        .hero-video {
+            width: 100%;
+            height: 80vh;
+            overflow: hidden;
+            position: relative;
+            background: #000;
+        }
+        .hero-video video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+        }
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+        }
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .hero-content p {
+            font-size: 1.5rem;
+            margin: 0 auto 2rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        }
+        .btn-hero {
+            font-weight: 600;
+            padding: 0 30px;
+            height: 50px;
+            line-height: 50px;
+            transition: all 0.3s ease;
+        }
+        .btn-hero:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body class="black">
+
+    <!-- Navigation -->
+    <nav class="black" style="height: 130px; line-height: 130px;">
+        <div class="nav-wrapper container" style="height: 100%;">
+            <a href="{% url 'core:home' %}" class="brand-logo" style="display: flex; align-items: center; height: 100%; padding: 10px 0;">
+                <img src="{% static 'img/logo.jpg' %}" alt="D&S Karans Logo" style="height: 120px; width: auto; margin-right: 25px;">
+                <span class="gold-text hide-on-med-and-down" style="font-size: 2.8rem; font-weight: 800; line-height: 1.2; text-transform: uppercase; letter-spacing: 1px;">D&S Karans</span>
+            </a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a class="gold-text" href="{% url 'core:home' %}">Home</a></li>
+                <li><a class="gold-text" href="{% url 'core:products' %}">Products</a></li>
+                <li><a class="gold-text" href="{% url 'core:contact' %}">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <ul class="sidenav black" id="mobile-demo">
+        <li><a class="gold-text" href="{% url 'core:home' %}">Home</a></li>
+        <li><a class="gold-text" href="{% url 'core:products' %}">Products</a></li>
+        <li><a class="gold-text" href="{% url 'core:contact' %}">Contact</a></li>
+    </ul>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="page-footer black">
+        <div class="container">
+            <div class="row">
+                <div class="col s12 m6">
+                    <h5 class="gold-text">D&S Karans Ltd</h5>
+                    <p class="grey-text text-lighten-4">Premium Importer & Distributor</p>
+                </div>
+                <div class="col s12 m4 offset-m2">
+                    <h5 class="gold-text">Contact Us</h5>
+                    <ul>
+                        <li><a class="grey-text text-lighten-3" href="mailto:info@dskarans.com">info@dskarans.com</a></li>
+                        <li><a class="grey-text text-lighten-3" href="tel:+1234567890">+1 (234) 567-890</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                <span class="gold-text">© {% now "Y" %} D&S Karans Ltd. Est. 2022</span>
+                <a class="grey-text text-lighten-4 right" href="#!">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        // Initialize Materialize components
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.sidenav');
+            var instances = M.Sidenav.init(elems);
+            
+            // Initialize select elements
+            var selects = document.querySelectorAll('select');
+            M.FormSelect.init(selects);
+        });
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

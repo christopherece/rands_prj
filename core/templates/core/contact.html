@@ -1,0 +1,307 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Us - D&S Karans Ltd{% endblock %}
+
+{% block extra_css %}
+<style>
+    .contact-info {
+        margin-top: 2rem;
+    }
+    .contact-info i {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        display: block;
+    }
+    .contact-method {
+        padding: 2rem;
+        text-align: center;
+        height: 100%;
+        transition: all 0.3s ease;
+    }
+    .contact-method:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+    .map-container {
+        overflow: hidden;
+        padding-bottom: 56.25%;
+        position: relative;
+        height: 0;
+        margin: 2rem 0;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+    .map-container iframe {
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        border: 0;
+    }
+    .success-message {
+        padding: 1rem;
+        margin: 1rem 0;
+        border-radius: 4px;
+        background-color: #e8f5e9;
+        color: #2e7d32;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Page Title -->
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 center">
+                <h1 class="gold-text">Contact Us</h1>
+                <p class="flow-text">We'd love to hear from you. Get in touch with us!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Contact Methods -->
+<div class="section grey darken-4">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m4">
+                <div class="card-panel contact-method">
+                    <i class="material-icons gold-text">location_on</i>
+                    <h5>Our Location</h5>
+                    <p>123 Trade Center, Suva, Fiji</p>
+                </div>
+            </div>
+            <div class="col s12 m4">
+                <div class="card-panel contact-method">
+                    <i class="material-icons gold-text">email</i>
+                    <h5>Email Us</h5>
+                    <p><a href="mailto:info@dskarans.com" class="gold-text">info@dskarans.com</a></p>
+                </div>
+            </div>
+            <div class="col s12 m4">
+                <div class="card-panel contact-method">
+                    <i class="material-icons gold-text">phone</i>
+                    <h5>Call Us</h5>
+                    <p><a href="tel:+6791234567" class="gold-text">+679 123 4567</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Contact Form -->
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m6">
+                <h4 class="gold-text">Send Us a Message</h4>
+                <p>Have questions about our products or services? Fill out the form below and we'll get back to you as soon as possible.</p>
+                
+                <form method="post" class="contact-form">
+                    {% csrf_token %}
+                    
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="success-message">
+                                <i class="material-icons left">check_circle</i>
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">person</i>
+                            <input id="name" name="name" type="text" class="validate" required>
+                            <label for="name">Your Name *</label>
+                        </div>
+                        
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">email</i>
+                            <input id="email" name="email" type="email" class="validate" required>
+                            <label for="email">Email Address *</label>
+                            <span class="helper-text" data-error="Please enter a valid email" data-success=""></span>
+                        </div>
+                        
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">subject</i>
+                            <input id="subject" name="subject" type="text" class="validate" required value="{{ request.GET.subject|default:'' }}">
+                            <label for="subject">Subject *</label>
+                        </div>
+                        
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">message</i>
+                            <textarea id="message" name="message" class="materialize-textarea" required></textarea>
+                            <label for="message">Your Message *</label>
+                        </div>
+                        
+                        <div class="col s12">
+                            <button type="submit" class="btn btn-gold waves-effect waves-light">
+                                <i class="material-icons right">send</i> Send Message
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="col s12 m5 offset-m1">
+                <h4 class="gold-text">Find Us</h4>
+                <p>Our office is conveniently located in the heart of the city. Feel free to visit us during business hours.</p>
+                
+                <div class="map-container">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3944.332062083352!2d178.4419143152586!3d-18.14370178759443!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6e1bf2e5e5a5a5a5%3A0x1a3a3a3a3a3a3a3a!2sSuva%2C%20Fiji!5e0!3m2!1sen!2s!4v1620000000000!5m2!1sen!2s" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+                
+                <div class="business-hours">
+                    <h5 class="gold-text">Business Hours</h5>
+                    <table class="striped">
+                        <tbody>
+                            <tr>
+                                <td>Monday - Friday</td>
+                                <td>9:00 AM - 5:00 PM</td>
+                            </tr>
+                            <tr>
+                                <td>Saturday</td>
+                                <td>10:00 AM - 2:00 PM</td>
+                            </tr>
+                            <tr>
+                                <td>Sunday</td>
+                                <td>Closed</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FAQ Section -->
+<div class="section grey darken-4">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 center">
+                <h4 class="gold-text">Frequently Asked Questions</h4>
+                <p class="flow-text">Find answers to common questions about our products and services.</p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col s12 m6">
+                <ul class="collapsible">
+                    <li class="active">
+                        <div class="collapsible-header">
+                            <i class="material-icons gold-text">help_outline</i>
+                            What products do you import and distribute?
+                        </div>
+                        <div class="collapsible-body">
+                            <p>We specialize in importing and distributing Kava from Fiji, Kava Filters, and Vermicelli from China. Our product range is carefully selected to ensure the highest quality for our customers.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header">
+                            <i class="material-icons gold-text">local_shipping</i>
+                            Do you offer international shipping?
+                        </div>
+                        <div class="collapsible-body">
+                            <p>Yes, we offer international shipping to most countries. Shipping costs and delivery times vary depending on your location. Please contact us for specific shipping information to your country.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header">
+                            <i class="material-icons gold-text">payment</i>
+                            What payment methods do you accept?
+                        </div>
+                        <div class="collapsible-body">
+                            <p>We accept various payment methods including bank transfers, credit/debit cards, and other secure online payment options. Specific payment terms can be discussed with our sales team.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="col s12 m6">
+                <ul class="collapsible">
+                    <li>
+                        <div class="collapsible-header">
+                            <i class="material-icons gold-text">store</i>
+                            Can I visit your showroom?
+                        </div>
+                        <div class="collapsible-body">
+                            <p>Yes, our showroom is open during business hours. We recommend scheduling an appointment in advance to ensure we can give you our full attention and answer all your questions.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header">
+                            <i class="material-icons gold-text">business</i>
+                            Are you looking for distributors?
+                        </div>
+                        <div class="collapsible-body">
+                            <p>We're always interested in expanding our distribution network. If you're interested in becoming a distributor, please contact us with your business details and we'll be happy to discuss potential opportunities.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header">
+                            <i class="material-icons gold-text">contact_support</i>
+                            How can I track my order?
+                        </div>
+                        <div class="collapsible-body">
+                            <p>Once your order has been shipped, you will receive a confirmation email with tracking information. You can use this information to track your package through our shipping partner's website.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize collapsible for FAQ
+        var collapsible = document.querySelectorAll('.collapsible');
+        M.Collapsible.init(collapsible);
+        
+        // Initialize form validation
+        var form = document.querySelector('.contact-form');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                var valid = true;
+                var requiredFields = form.querySelectorAll('[required]');
+                
+                requiredFields.forEach(function(field) {
+                    if (!field.value.trim()) {
+                        valid = false;
+                        field.classList.add('invalid');
+                    } else {
+                        field.classList.remove('invalid');
+                    }
+                });
+                
+                // Email validation
+                var emailField = form.querySelector('[type="email"]');
+                if (emailField && !isValidEmail(emailField.value)) {
+                    valid = false;
+                    emailField.classList.add('invalid');
+                }
+                
+                if (!valid) {
+                    e.preventDefault();
+                    M.toast({html: 'Please fill in all required fields correctly.', classes: 'red'});
+                }
+            });
+        }
+        
+        // Helper function to validate email
+        function isValidEmail(email) {
+            var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+    });
+</script>
+{% endblock %}

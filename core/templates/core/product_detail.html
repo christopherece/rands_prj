@@ -1,0 +1,270 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ product.name }} - D&S Karans Ltd{% endblock %}
+
+{% block extra_css %}
+<style>
+    .product-detail {
+        margin-top: 2rem;
+    }
+    .product-image {
+        max-width: 100%;
+        height: auto;
+        border-radius: 4px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    .product-title {
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #333;
+    }
+    .product-price {
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 1.5rem 0;
+    }
+    .stock-status {
+        margin: 1rem 0;
+        padding: 0.5rem;
+        border-radius: 4px;
+    }
+    .in-stock {
+        background-color: rgba(0, 200, 83, 0.1);
+        color: #00c853;
+    }
+    .out-of-stock {
+        background-color: rgba(255, 82, 82, 0.1);
+        color: #ff5252;
+    }
+    .related-products {
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid #333;
+    }
+    .product-actions {
+        margin: 2rem 0;
+    }
+    .quantity-selector {
+        width: 100px;
+        display: inline-block;
+        margin-right: 1rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="section product-detail">
+    <div class="container">
+        <!-- Breadcrumb -->
+        <nav class="grey darken-4" style="padding: 0 10px; border-radius: 4px; margin-bottom: 2rem;">
+            <div class="nav-wrapper">
+                <div class="col s12">
+                    <a href="{% url 'core:home' %}" class="breadcrumb">Home</a>
+                    <a href="{% url 'core:products' %}" class="breadcrumb">Products</a>
+                    <a href="{% url 'core:products_by_category' product.category.slug %}" class="breadcrumb">{{ product.category.name }}</a>
+                    <span class="breadcrumb active">{{ product.name }}</span>
+                </div>
+            </div>
+        </nav>
+
+        <div class="row">
+            <!-- Product Images -->
+            <div class="col s12 m6">
+                <div class="card">
+                    <div class="card-image">
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="responsive-img">
+                        {% else %}
+                            <img src="https://via.placeholder.com/600x500?text=No+Image+Available" alt="No image available" class="responsive-img">
+                        {% endif %}
+                    </div>
+                    <!-- Add more product images here if available -->
+                </div>
+            </div>
+
+            <!-- Product Info -->
+            <div class="col s12 m6">
+                <h1 class="product-title gold-text">{{ product.name }}</h1>
+                
+                <div class="product-meta">
+                    <p>Category: 
+                        <a href="{% url 'core:products_by_category' product.category.slug %}" class="gold-text">
+                            {{ product.category.name }}
+                        </a>
+                    </p>
+                    <p>Product Code: <span class="grey-text">#{{ product.id|stringformat:"06d" }}</span></p>
+                </div>
+                
+                <div class="product-price gold-text">
+                    ${{ product.price }}
+                    {% if product.old_price %}
+                        <small class="grey-text text-lighten-1" style="text-decoration: line-through; font-size: 1rem;">
+                            ${{ product.old_price }}
+                        </small>
+                    {% endif %}
+                </div>
+                
+                <div class="stock-status {% if product.in_stock %}in-stock{% else %}out-of-stock{% endif %}">
+                    <i class="material-icons left">{% if product.in_stock %}check_circle{% else %}cancel{% endif %}</i>
+                    {% if product.in_stock %}
+                        In Stock ({{ product.stock }} available)
+                    {% else %}
+                        Out of Stock
+                    {% endif %}
+                </div>
+                
+                <div class="product-description">
+                    <h5>Description</h5>
+                    <div class="divider"></div>
+                    <p>{{ product.description|linebreaksbr }}</p>
+                </div>
+                
+                <div class="product-actions">
+                    <form action="{% url 'core:contact' %}" method="GET">
+                        <input type="hidden" name="subject" value="Inquiry about {{ product.name }}">
+                        <div class="input-field">
+                            <input type="number" name="quantity" value="1" min="1" max="{% if product.in_stock %}{{ product.stock }}{% else %}1{% endif %}" 
+                                   class="quantity-selector" {% if not product.in_stock %}disabled{% endif %}>
+                            <label for="quantity">Quantity</label>
+                        </div>
+                        <button type="submit" class="btn btn-gold waves-effect waves-light" {% if not product.in_stock %}disabled{% endif %}>
+                            <i class="material-icons left">email</i> Contact to Order
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="product-share">
+                    <p>Share this product:</p>
+                    <div>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" 
+                           target="_blank" class="btn-floating grey darken-2">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text=Check%20out%20{{ product.name|urlencode }}" 
+                           target="_blank" class="btn-floating grey darken-2">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="mailto:?subject={{ product.name|urlencode }}&body=Check%20out%20this%20product:%20{{ request.build_absolute_uri }}" 
+                           class="btn-floating grey darken-2">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Product Tabs -->
+        <div class="row">
+            <div class="col s12">
+                <ul class="tabs grey darken-4">
+                    <li class="tab col s4">
+                        <a href="#description" class="gold-text">Description</a>
+                    </li>
+                    <li class="tab col s4">
+                        <a href="#specifications" class="gold-text">Specifications</a>
+                    </li>
+                    <li class="tab col s4">
+                        <a href="#shipping" class="gold-text">Shipping & Returns</a>
+                    </li>
+                </ul>
+            </div>
+            <div id="description" class="col s12" style="padding: 20px 0;">
+                <h5>Product Details</h5>
+                <p>{{ product.description|linebreaksbr }}</p>
+                {% if not product.description %}
+                    <p>No detailed description available for this product.</p>
+                {% endif %}
+            </div>
+            <div id="specifications" class="col s12" style="padding: 20px 0;">
+                <h5>Specifications</h5>
+                <table class="striped">
+                    <tbody>
+                        <tr>
+                            <td><strong>Product Name</strong></td>
+                            <td>{{ product.name }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Category</strong></td>
+                            <td>{{ product.category.name }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Availability</strong></td>
+                            <td>{% if product.in_stock %}In Stock ({{ product.stock }} available){% else %}Out of Stock{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Price</strong></td>
+                            <td class="gold-text">${{ product.price }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="shipping" class="col s12" style="padding: 20px 0;">
+                <h5>Shipping Information</h5>
+                <p>We offer worldwide shipping. Please contact us for specific shipping rates and delivery times to your location.</p>
+                <h6>Returns Policy</h6>
+                <p>We accept returns within 30 days of purchase. Items must be in original condition with all tags attached. Please contact our customer service for return authorization.</p>
+            </div>
+        </div>
+        
+        <!-- Related Products -->
+        {% if related_products %}
+        <div class="related-products">
+            <h4 class="center-align">You May Also Like</h4>
+            <div class="divider"></div>
+            <div class="row">
+                {% for related in related_products %}
+                <div class="col s12 m6 l3">
+                    <div class="card">
+                        <div class="card-image">
+                            <a href="{{ related.get_absolute_url }}">
+                                {% if related.image %}
+                                    <img src="{{ related.image.url }}" alt="{{ related.name }}">
+                                {% else %}
+                                    <img src="https://via.placeholder.com/400x300?text=No+Image" alt="No image available">
+                                {% endif %}
+                            </a>
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title">
+                                <a href="{{ related.get_absolute_url }}" class="gold-text">{{ related.name }}</a>
+                            </span>
+                            <p class="grey-text text-lighten-1">{{ related.category.name }}</p>
+                            <p class="right-align">
+                                <strong class="gold-text">${{ related.price }}</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize Materialize tabs
+        var tabs = document.querySelectorAll('.tabs');
+        M.Tabs.init(tabs);
+        
+        // Initialize quantity selector
+        var quantityInput = document.querySelector('input[type="number"]');
+        if (quantityInput) {
+            // Ensure quantity doesn't exceed available stock
+            quantityInput.addEventListener('change', function() {
+                var max = parseInt(this.max);
+                var value = parseInt(this.value);
+                if (value > max) {
+                    this.value = max;
+                    M.toast({html: 'Maximum available quantity is ' + max});
+                } else if (value < 1) {
+                    this.value = 1;
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}
