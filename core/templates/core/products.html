@@ -208,38 +208,67 @@
 </div>
 
 <!-- Search and Filter Section -->
-<div class="section search-filter grey darken-4">
+<!-- <div class="section search-filter grey darken-4">
     <div class="container">
-        <form method="get" action="{% url 'core:products' %}">
+        <form method="get" action="{% url 'core:products' %}" id="filter-form">
+            <input type="hidden" name="sort" value="{{ sort_by }}" id="sort-value">
             <div class="row">
                 <div class="input-field col s12 m6">
                     <i class="material-icons prefix">search</i>
-                    <input type="text" id="search" name="q" value="{{ search_query }}" placeholder="Search products...">
+                    <input type="text" id="search" name="q" value="{{ search_query }}" placeholder="Search products..." class="validate">
                 </div>
-                <div class="input-field col s12 m4">
-                    <select name="category" onchange="this.form.submit()">
+                <div class="input-field col s12 m3">
+                    <select name="category" id="category-select" class="browser-default">
                         <option value="" {% if not selected_category %}selected{% endif %}>All Categories</option>
                         {% for category in categories %}
-                            <option value="{{ category.slug }}" 
-                                    {% if category.slug == selected_category %}selected{% endif %}>
+                            <option value="{{ category.slug }}" {% if category.slug == selected_category %}selected{% endif %}>
                                 {{ category.name }}
                             </option>
                         {% endfor %}
                     </select>
-                    <label>Filter by Category</label>
                 </div>
-                <div class="input-field col s12 m2">
+                <div class="input-field col s12 m3">
+                    <select name="sort" id="sort-select" class="browser-default" onchange="document.getElementById('sort-value').value=this.value; document.getElementById('filter-form').submit();">
+                        <option value="name" {% if sort_by == 'name' %}selected{% endif %}>Sort by Name (A-Z)</option>
+                        <option value="price_asc" {% if sort_by == 'price_asc' %}selected{% endif %}>Price: Low to High</option>
+                        <option value="price_desc" {% if sort_by == 'price_desc' %}selected{% endif %}>Price: High to Low</option>
+                        <option value="newest" {% if sort_by == 'newest' %}selected{% endif %}>Newest First</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 right-align">
                     <button type="submit" class="btn btn-gold waves-effect waves-light">
-                        <i class="material-icons left">filter_alt</i> Filter
+                        <i class="material-icons left">filter_alt</i> Apply Filters
                     </button>
+                    {% if search_query or selected_category %}
+                        <a href="{% url 'core:products' %}" class="btn grey darken-3 waves-effect waves-light" style="margin-left: 10px;">
+                            <i class="material-icons left">clear</i> Clear All
+                        </a>
+                    {% endif %}
                 </div>
             </div>
         </form>
     </div>
-</div>
+</div> -->
+
+<script>
+    // Initialize Materialize select elements
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize all select elements
+        var elems = document.querySelectorAll('select');
+        M.FormSelect.init(elems, {});
+        
+        // Handle form submission to ensure all values are captured
+        document.getElementById('filter-form').addEventListener('submit', function(e) {
+            // The form will submit with all values automatically
+            return true;
+        });
+    });
+</script>
 
 <!-- Sort Options -->
-<div class="section sort-options">
+<!-- <div class="section sort-options">
     <div class="container">
         <div class="row">
             <div class="col s12">
@@ -263,7 +292,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <!-- Products Grid -->
 <div class="section" style="padding: 6rem 0;">
@@ -277,7 +306,9 @@
             <!-- Product 1 -->
             <div class="product-item">
                 <div class="product-image">
-                    <img src="{% static 'img/PHOTO-2025-09-15-07-19-45.jpg' %}" alt="Premium Kava">
+                            <a href="{% static 'img/PHOTO-2025-09-15-07-19-45.jpg' %}" data-lightbox="products" data-title="Premium Fijian Kava">
+                                <img src="{% static 'img/PHOTO-2025-09-15-07-19-45.jpg' %}" alt="Premium Kava">
+                            </a>
                 </div>
                 <div class="product-info">
                     <span class="product-category">Kava</span>
@@ -290,7 +321,9 @@
             <!-- Product 2 -->
             <div class="product-item">
                 <div class="product-image">
-                    <img src="{% static 'img/PHOTO-2025-09-15-07-19-45 2.jpg' %}" alt="Kava Root">
+                            <a href="{% static 'img/PHOTO-2025-09-15-07-19-45 2.jpg' %}" data-lightbox="products" data-title="Premium Kava Root">
+                                <img src="{% static 'img/PHOTO-2025-09-15-07-19-45 2.jpg' %}" alt="Kava Root">
+                            </a>
                 </div>
                 <div class="product-info">
                     <span class="product-category">Kava</span>
@@ -303,7 +336,9 @@
             <!-- Product 3 -->
             <div class="product-item">
                 <div class="product-image">
-                    <img src="{% static 'img/PHOTO-2025-09-15-07-19-46.jpg' %}" alt="Vanuatu Kava">
+                            <a href="{% static 'img/PHOTO-2025-09-15-07-19-46.jpg' %}" data-lightbox="products" data-title="Vanuatu Kava">
+                                <img src="{% static 'img/PHOTO-2025-09-15-07-19-46.jpg' %}" alt="Vanuatu Kava">
+                            </a>
                 </div>
                 <div class="product-info">
                     <span class="product-category">Kava</span>
@@ -316,7 +351,9 @@
             <!-- Product 4 -->
             <div class="product-item">
                 <div class="product-image">
-                    <img src="{% static 'img/PHOTO-2025-09-15-07-19-46 2.jpg' %}" alt="Kava Powder">
+                            <a href="{% static 'img/PHOTO-2025-09-15-07-19-46 2.jpg' %}" data-lightbox="products" data-title="Premium Kava Powder">
+                                <img src="{% static 'img/PHOTO-2025-09-15-07-19-46 2.jpg' %}" alt="Kava Powder">
+                            </a>
                 </div>
                 <div class="product-info">
                     <span class="product-category">Kava</span>
@@ -329,7 +366,9 @@
             <!-- Product 5 -->
             <div class="product-item">
                 <div class="product-image">
-                    <img src="{% static 'img/PHOTO-2025-09-15-07-19-46 3.jpg' %}" alt="Kava Bundle">
+                            <a href="{% static 'img/PHOTO-2025-09-15-07-19-46 3.jpg' %}" data-lightbox="products" data-title="Kava Bundle Pack">
+                                <img src="{% static 'img/PHOTO-2025-09-15-07-19-46 3.jpg' %}" alt="Kava Bundle">
+                            </a>
                 </div>
                 <div class="product-info">
                     <span class="product-category">Kava</span>
@@ -342,7 +381,9 @@
             <!-- Product 6 -->
             <div class="product-item">
                 <div class="product-image">
-                    <img src="{% static 'img/PHOTO-2025-09-15-07-19-47.jpg' %}" alt="Traditional Herbs">
+                            <a href="{% static 'img/PHOTO-2025-09-15-07-19-47.jpg' %}" data-lightbox="products" data-title="Traditional Herbal Mix">
+                                <img src="{% static 'img/PHOTO-2025-09-15-07-19-47.jpg' %}" alt="Traditional Herbs">
+                            </a>
                 </div>
                 <div class="product-info">
                     <span class="product-category">Herbs</span>
@@ -355,7 +396,9 @@
             <!-- Product 7 -->
             <div class="product-item">
                 <div class="product-image">
-                    <img src="{% static 'img/PHOTO-2025-09-15-07-19-47 3.jpg' %}" alt="Herbal Tea">
+                            <a href="{% static 'img/PHOTO-2025-09-15-07-19-47 3.jpg' %}" data-lightbox="products" data-title="Herbal Tea Selection">
+                                <img src="{% static 'img/PHOTO-2025-09-15-07-19-47 3.jpg' %}" alt="Herbal Tea">
+                            </a>
                 </div>
                 <div class="product-info">
                     <span class="product-category">Tea</span>
@@ -368,7 +411,9 @@
             <!-- Product 8 -->
             <div class="product-item">
                 <div class="product-image">
-                    <img src="{% static 'img/PHOTO-2025-09-15-07-30-19.jpg' %}" alt="Organic Spices">
+                            <a href="{% static 'img/PHOTO-2025-09-15-07-30-19.jpg' %}" data-lightbox="products" data-title="Organic Turmeric">
+                                <img src="{% static 'img/PHOTO-2025-09-15-07-30-19.jpg' %}" alt="Organic Spices">
+                            </a>
                 </div>
                 <div class="product-info">
                     <span class="product-category">Spices</span>
@@ -381,7 +426,9 @@
             <!-- Product 9 -->
             <div class="product-item">
                 <div class="product-image">
-                    <img src="{% static 'img/PHOTO-2025-09-15-07-30-19 2.jpg' %}" alt="Spice Collection">
+                            <a href="{% static 'img/PHOTO-2025-09-15-07-30-19 2.jpg' %}" data-lightbox="products" data-title="Spice Collection">
+                                <img src="{% static 'img/PHOTO-2025-09-15-07-30-19 2.jpg' %}" alt="Spice Collection">
+                            </a>
                 </div>
                 <div class="product-info">
                     <span class="product-category">Spices</span>
@@ -394,7 +441,9 @@
             <!-- Product 10 -->
             <div class="product-item">
                 <div class="product-image">
-                    <img src="{% static 'img/PHOTO-2025-09-15-07-30-20.jpg' %}" alt="Exotic Spices">
+                            <a href="{% static 'img/PHOTO-2025-09-15-07-30-20.jpg' %}" data-lightbox="products" data-title="Exotic Spice Collection">
+                                <img src="{% static 'img/PHOTO-2025-09-15-07-30-20.jpg' %}" alt="Exotic Spices">
+                            </a>
                 </div>
                 <div class="product-info">
                     <span class="product-category">Spices</span>
@@ -407,7 +456,9 @@
             <!-- Product 11 -->
             <div class="product-item">
                 <div class="product-image">
-                    <img src="{% static 'img/PHOTO-2025-09-15-07-30-20 2.jpg' %}" alt="Herbal Infusion">
+                            <a href="{% static 'img/PHOTO-2025-09-15-07-30-20 2.jpg' %}" data-lightbox="products" data-title="Herbal Infusion">
+                                <img src="{% static 'img/PHOTO-2025-09-15-07-30-20 2.jpg' %}" alt="Herbal Infusion">
+                            </a>
                 </div>
                 <div class="product-info">
                     <span class="product-category">Tea</span>
@@ -420,7 +471,9 @@
             <!-- Product 12 -->
             <div class="product-item">
                 <div class="product-image">
-                    <img src="{% static 'img/PHOTO-2025-09-15-07-30-20 3.jpg' %}" alt="Spice Mix">
+                            <a href="{% static 'img/PHOTO-2025-09-15-07-30-20 3.jpg' %}" data-lightbox="products" data-title="Gourmet Spice Mix">
+                                <img src="{% static 'img/PHOTO-2025-09-15-07-30-20 3.jpg' %}" alt="Spice Mix">
+                            </a>
                 </div>
                 <div class="product-info">
                     <span class="product-category">Spices</span>
