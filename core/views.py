@@ -16,8 +16,12 @@ class HomeView(TemplateView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # Get featured products
-        context['featured_products'] = Product.objects.filter(featured=True, available=True)[:3]
+        # Get featured products, ordered by most recently added
+        context['featured_products'] = Product.objects.filter(
+            featured=True, 
+            available=True
+        ).order_by('-created_at')[:3]
+        
         # Get categories for the dropdown
         context['categories'] = Category.objects.all()[:6]
         return context

@@ -158,6 +158,49 @@
             color: #ffd700 !important;
             background-color: rgba(255, 215, 0, 0.1);
         }
+        
+        /* Breadcrumb Navigation */
+        .breadcrumb-nav {
+            margin: 0 0 2rem 0;
+            padding: 0;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .breadcrumb-nav .nav-wrapper {
+            padding: 0 1rem;
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+        }
+        .breadcrumb {
+            font-size: 0.9rem;
+            color: #bdbdbd;
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 0;
+            margin: 0;
+            line-height: 1.5;
+        }
+        .breadcrumb:not(:first-child)::before {
+            content: '\E5CC';
+            font-family: 'Material Icons';
+            color: #ffd700;
+            font-size: 1.25rem;
+            margin: 0 0.5rem;
+            vertical-align: middle;
+        }
+        .breadcrumb:last-child {
+            color: #ffd700;
+            font-weight: 500;
+            pointer-events: none;
+        }
+        .breadcrumb:hover {
+            color: #fff;
+        }
+        .breadcrumb:not(:last-child):hover {
+            text-decoration: underline;
+        }
         .sidenav {
             background-color: #0a0a0a;
         }

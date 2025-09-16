@@ -303,185 +303,49 @@
         </div>
         
         <div class="products-grid">
-            <!-- Product 1 -->
-            <div class="product-item">
-                <div class="product-image">
-                            <a href="{% static 'img/PHOTO-2025-09-15-07-19-45.jpg' %}" data-lightbox="products" data-title="Premium Fijian Kava">
-                                <img src="{% static 'img/PHOTO-2025-09-15-07-19-45.jpg' %}" alt="Premium Kava">
+            {% if products %}
+                {% for product in products %}
+                <div class="product-item">
+                    <div class="product-image">
+                        {% if product.image %}
+                            <a href="{{ product.image.url }}" data-lightbox="products" data-title="{{ product.name }}">
+                                <img src="{{ product.image.url }}" alt="{{ product.name }}">
                             </a>
+                        {% else %}
+                            <div class="card-image valign-wrapper" style="background: #2a2a2a; height: 250px; display: flex; align-items: center; justify-content: center;">
+                                <i class="material-icons large" style="color: #555;">image_not_supported</i>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="product-info">
+                        {% if product.category %}
+                            <span class="product-category">{{ product.category.name }}</span>
+                        {% endif %}
+                        <h3 class="product-title">{{ product.name }}</h3>
+                        <p class="product-description">
+                            {% if product.description %}
+                                {{ product.description|truncatewords:20 }}
+                            {% else %}
+                                No description available.
+                            {% endif %}
+                        </p>
+                        <div class="product-price">${{ product.price|floatformat:2 }}</div>
+                        <a href="{% url 'core:product_detail' product.id product.slug %}" class="btn-view">View Details</a>
+                        {% if not product.in_stock %}
+                            <span class="red-text" style="display: block; margin-top: 10px;">Out of Stock</span>
+                        {% endif %}
+                    </div>
                 </div>
-                <div class="product-info">
-                    <span class="product-category">Kava</span>
-                    <h3 class="product-title">Premium Fijian Kava</h3>
-                    <p class="product-description">Experience the finest quality Fijian Kava, traditionally prepared and sun-dried to perfection.</p>
-                    <div class="product-price">$49.99</div>
+                {% endfor %}
+            {% else %}
+                <div class="col s12 center-align">
+                    <div class="no-products">
+                        <i class="material-icons">search_off</i>
+                        <h4>No products found</h4>
+                        <p>We couldn't find any products matching your search.</p>
+                    </div>
                 </div>
-            </div>
-            
-            <!-- Product 2 -->
-            <div class="product-item">
-                <div class="product-image">
-                            <a href="{% static 'img/PHOTO-2025-09-15-07-19-45 2.jpg' %}" data-lightbox="products" data-title="Premium Kava Root">
-                                <img src="{% static 'img/PHOTO-2025-09-15-07-19-45 2.jpg' %}" alt="Kava Root">
-                            </a>
-                </div>
-                <div class="product-info">
-                    <span class="product-category">Kava</span>
-                    <h3 class="product-title">Premium Kava Root</h3>
-                    <p class="product-description">Whole kava root, perfect for traditional preparation methods.</p>
-                    <div class="product-price">$39.99</div>
-                </div>
-            </div>
-            
-            <!-- Product 3 -->
-            <div class="product-item">
-                <div class="product-image">
-                            <a href="{% static 'img/PHOTO-2025-09-15-07-19-46.jpg' %}" data-lightbox="products" data-title="Vanuatu Kava">
-                                <img src="{% static 'img/PHOTO-2025-09-15-07-19-46.jpg' %}" alt="Vanuatu Kava">
-                            </a>
-                </div>
-                <div class="product-info">
-                    <span class="product-category">Kava</span>
-                    <h3 class="product-title">Vanuatu Kava</h3>
-                    <p class="product-description">Premium Vanuatu Kava, known for its strong and smooth effects.</p>
-                    <div class="product-price">$54.99</div>
-                </div>
-            </div>
-            
-            <!-- Product 4 -->
-            <div class="product-item">
-                <div class="product-image">
-                            <a href="{% static 'img/PHOTO-2025-09-15-07-19-46 2.jpg' %}" data-lightbox="products" data-title="Premium Kava Powder">
-                                <img src="{% static 'img/PHOTO-2025-09-15-07-19-46 2.jpg' %}" alt="Kava Powder">
-                            </a>
-                </div>
-                <div class="product-info">
-                    <span class="product-category">Kava</span>
-                    <h3 class="product-title">Premium Kava Powder</h3>
-                    <p class="product-description">Finely ground kava powder for traditional preparation.</p>
-                    <div class="product-price">$44.99</div>
-                </div>
-            </div>
-            
-            <!-- Product 5 -->
-            <div class="product-item">
-                <div class="product-image">
-                            <a href="{% static 'img/PHOTO-2025-09-15-07-19-46 3.jpg' %}" data-lightbox="products" data-title="Kava Bundle Pack">
-                                <img src="{% static 'img/PHOTO-2025-09-15-07-19-46 3.jpg' %}" alt="Kava Bundle">
-                            </a>
-                </div>
-                <div class="product-info">
-                    <span class="product-category">Kava</span>
-                    <h3 class="product-title">Kava Bundle Pack</h3>
-                    <p class="product-description">A selection of our finest kava varieties in one bundle.</p>
-                    <div class="product-price">$89.99</div>
-                </div>
-            </div>
-            
-            <!-- Product 6 -->
-            <div class="product-item">
-                <div class="product-image">
-                            <a href="{% static 'img/PHOTO-2025-09-15-07-19-47.jpg' %}" data-lightbox="products" data-title="Traditional Herbal Mix">
-                                <img src="{% static 'img/PHOTO-2025-09-15-07-19-47.jpg' %}" alt="Traditional Herbs">
-                            </a>
-                </div>
-                <div class="product-info">
-                    <span class="product-category">Herbs</span>
-                    <h3 class="product-title">Traditional Herbal Mix</h3>
-                    <p class="product-description">A special blend of traditional herbs with health benefits.</p>
-                    <div class="product-price">$29.99</div>
-                </div>
-            </div>
-            
-            <!-- Product 7 -->
-            <div class="product-item">
-                <div class="product-image">
-                            <a href="{% static 'img/PHOTO-2025-09-15-07-19-47 3.jpg' %}" data-lightbox="products" data-title="Herbal Tea Selection">
-                                <img src="{% static 'img/PHOTO-2025-09-15-07-19-47 3.jpg' %}" alt="Herbal Tea">
-                            </a>
-                </div>
-                <div class="product-info">
-                    <span class="product-category">Tea</span>
-                    <h3 class="product-title">Herbal Tea Selection</h3>
-                    <p class="product-description">A soothing blend of organic herbs for relaxation.</p>
-                    <div class="product-price">$19.99</div>
-                </div>
-            </div>
-            
-            <!-- Product 8 -->
-            <div class="product-item">
-                <div class="product-image">
-                            <a href="{% static 'img/PHOTO-2025-09-15-07-30-19.jpg' %}" data-lightbox="products" data-title="Organic Turmeric">
-                                <img src="{% static 'img/PHOTO-2025-09-15-07-30-19.jpg' %}" alt="Organic Spices">
-                            </a>
-                </div>
-                <div class="product-info">
-                    <span class="product-category">Spices</span>
-                    <h3 class="product-title">Organic Turmeric</h3>
-                    <p class="product-description">High-quality organic turmeric powder with rich flavor.</p>
-                    <div class="product-price">$12.99</div>
-                </div>
-            </div>
-            
-            <!-- Product 9 -->
-            <div class="product-item">
-                <div class="product-image">
-                            <a href="{% static 'img/PHOTO-2025-09-15-07-30-19 2.jpg' %}" data-lightbox="products" data-title="Spice Collection">
-                                <img src="{% static 'img/PHOTO-2025-09-15-07-30-19 2.jpg' %}" alt="Spice Collection">
-                            </a>
-                </div>
-                <div class="product-info">
-                    <span class="product-category">Spices</span>
-                    <h3 class="product-title">Spice Collection</h3>
-                    <p class="product-description">Aromatic spices from around the world.</p>
-                    <div class="product-price">$24.99</div>
-                </div>
-            </div>
-            
-            <!-- Product 10 -->
-            <div class="product-item">
-                <div class="product-image">
-                            <a href="{% static 'img/PHOTO-2025-09-15-07-30-20.jpg' %}" data-lightbox="products" data-title="Exotic Spice Collection">
-                                <img src="{% static 'img/PHOTO-2025-09-15-07-30-20.jpg' %}" alt="Exotic Spices">
-                            </a>
-                </div>
-                <div class="product-info">
-                    <span class="product-category">Spices</span>
-                    <h3 class="product-title">Exotic Spice Collection</h3>
-                    <p class="product-description">Rare and exotic spices for culinary enthusiasts.</p>
-                    <div class="product-price">$34.99</div>
-                </div>
-            </div>
-            
-            <!-- Product 11 -->
-            <div class="product-item">
-                <div class="product-image">
-                            <a href="{% static 'img/PHOTO-2025-09-15-07-30-20 2.jpg' %}" data-lightbox="products" data-title="Herbal Infusion">
-                                <img src="{% static 'img/PHOTO-2025-09-15-07-30-20 2.jpg' %}" alt="Herbal Infusion">
-                            </a>
-                </div>
-                <div class="product-info">
-                    <span class="product-category">Tea</span>
-                    <h3 class="product-title">Herbal Infusion</h3>
-                    <p class="product-description">Aromatic herbal tea blend for relaxation.</p>
-                    <div class="product-price">$16.99</div>
-                </div>
-            </div>
-            
-            <!-- Product 12 -->
-            <div class="product-item">
-                <div class="product-image">
-                            <a href="{% static 'img/PHOTO-2025-09-15-07-30-20 3.jpg' %}" data-lightbox="products" data-title="Gourmet Spice Mix">
-                                <img src="{% static 'img/PHOTO-2025-09-15-07-30-20 3.jpg' %}" alt="Spice Mix">
-                            </a>
-                </div>
-                <div class="product-info">
-                    <span class="product-category">Spices</span>
-                    <h3 class="product-title">Gourmet Spice Mix</h3>
-                    <p class="product-description">Special blend of premium spices for chefs.</p>
-                    <div class="product-price">$27.99</div>
-                </div>
-            </div>
+            {% endif %}
         </div>
             
         {% if products %}
@@ -570,7 +434,7 @@
             {% for category in categories %}
             <div class="col s6 m4 l2">
                 <div class="card-panel center-align hoverable" style="padding: 10px; min-height: 120px; display: flex; flex-direction: column; justify-content: center;">
-                    <a href="{% url 'core:products_by_category' category.slug %}" class="gold-text">
+                    <a href="{% if category.slug %}{% url 'core:products_by_category' category.slug %}{% else %}#{% endif %}" class="gold-text" {% if not category.slug %}title="Category not available"{% endif %}>
                         <i class="material-icons medium">category</i>
                         <h6>{{ category.name }}</h6>
                     </a>

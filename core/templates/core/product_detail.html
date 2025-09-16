@@ -55,32 +55,52 @@
 {% block content %}
 <div class="section product-detail">
     <div class="container">
-        <!-- Breadcrumb -->
-        <nav class="grey darken-4" style="padding: 0 10px; border-radius: 4px; margin-bottom: 2rem;">
+        <!-- Breadcrumb Navigation -->
+        <div class="breadcrumb-nav">
             <div class="nav-wrapper">
-                <div class="col s12">
-                    <a href="{% url 'core:home' %}" class="breadcrumb">Home</a>
-                    <a href="{% url 'core:products' %}" class="breadcrumb">Products</a>
-                    <a href="{% url 'core:products_by_category' product.category.slug %}" class="breadcrumb">{{ product.category.name }}</a>
-                    <span class="breadcrumb active">{{ product.name }}</span>
-                </div>
+                <a href="{% url 'core:home' %}" class="breadcrumb">Home</a>
+                <a href="{% url 'core:products' %}" class="breadcrumb">Products</a>
+                {% if product.category %}
+                <a href="{% url 'core:products_by_category' product.category.slug %}" class="breadcrumb">{{ product.category.name }}</a>
+                {% endif %}
+                <span class="breadcrumb">{{ product.name|truncatechars:30 }}</span>
             </div>
-        </nav>
+        </div>
 
         <div class="row">
             <!-- Product Images -->
             <div class="col s12 m6">
-                <div class="card">
-                    <div class="card-image">
+                <div class="card" style="box-shadow: none; margin: 0; background: transparent;">
+                    <div class="card-image" style="width: 100%; min-height: 400px; display: flex; justify-content: center; align-items: center; background: #f8f8f8; border-radius: 8px; overflow: hidden; padding: 1.5rem;">
                         {% if product.image %}
-                            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="responsive-img">
+                            <a href="{{ product.image.url }}" data-lightbox="product-image" data-title="{{ product.name }}" style="width: 100%; display: flex; justify-content: center;">
+                                <img src="{{ product.image.url }}" 
+                                     alt="{{ product.name }}" 
+                                     style="max-height: 500px; width: auto; max-width: 100%; object-fit: contain; cursor: zoom-in;
+                                            transition: transform 0.3s ease;"
+                                     class="product-main-image">
+                            </a>
                         {% else %}
-                            <img src="https://via.placeholder.com/600x500?text=No+Image+Available" alt="No image available" class="responsive-img">
+                            <img src="https://via.placeholder.com/600x500?text=No+Image+Available" 
+                                 alt="No image available" 
+                                 style="max-height: 500px; width: auto; max-width: 100%; object-fit: contain;">
                         {% endif %}
                     </div>
                     <!-- Add more product images here if available -->
                 </div>
             </div>
+            
+            <style>
+                .product-main-image:hover {
+                    transform: scale(1.02);
+                }
+                @media (max-width: 600px) {
+                    .card-image {
+                        min-height: 300px !important;
+                        padding: 1rem !important;
+                    }
+                }
+            </style>
 
             <!-- Product Info -->
             <div class="col s12 m6">
@@ -155,7 +175,7 @@
         
         <!-- Product Tabs -->
         <div class="row">
-            <div class="col s12">
+            <div class="col s12" style="padding: 0;">
                 <ul class="tabs grey darken-4">
                     <li class="tab col s4">
                         <a href="#description" class="gold-text">Description</a>
@@ -168,14 +188,14 @@
                     </li>
                 </ul>
             </div>
-            <div id="description" class="col s12" style="padding: 20px 0;">
+            <div id="description" class="col s12" style="padding: 20px 20px;">
                 <h5>Product Details</h5>
                 <p>{{ product.description|linebreaksbr }}</p>
                 {% if not product.description %}
                     <p>No detailed description available for this product.</p>
                 {% endif %}
             </div>
-            <div id="specifications" class="col s12" style="padding: 20px 0;">
+            <div id="specifications" class="col s12" style="padding: 20px 20px;">
                 <h5>Specifications</h5>
                 <table class="striped">
                     <tbody>
@@ -198,7 +218,7 @@
                     </tbody>
                 </table>
             </div>
-            <div id="shipping" class="col s12" style="padding: 20px 0;">
+            <div id="shipping" class="col s12" style="padding: 20px 20px;">
                 <h5>Shipping Information</h5>
                 <p>We offer worldwide shipping. Please contact us for specific shipping rates and delivery times to your location.</p>
                 <h6>Returns Policy</h6>
@@ -246,14 +266,18 @@
 {% block extra_js %}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Initialize Materialize tabs
+        // Initialize Materialize components
+        M.AutoInit();
+        
+        // Initialize tabs
         var tabs = document.querySelectorAll('.tabs');
-        M.Tabs.init(tabs);
+        if (tabs.length > 0) {
+            M.Tabs.init(tabs);
+        }
         
         // Initialize quantity selector
         var quantityInput = document.querySelector('input[type="number"]');
         if (quantityInput) {
-            // Ensure quantity doesn't exceed available stock
             quantityInput.addEventListener('change', function() {
                 var max = parseInt(this.max);
                 var value = parseInt(this.value);
