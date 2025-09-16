@@ -30,8 +30,8 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-dev-key-12345')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DJANGO_DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
-
+ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1','dnskaransltd.topitsolutions.co.nz','dnskaransltd.co.nz').split(',')
+CSRF_TRUSTED_ORIGINS = ['https://dnskaransltd.topitsolutions.co.nz','http://dnskaransltd.topitsolutions.co.nz','https://www.dnskaransltd.co.nz','http://www.dnskaransltd.co.nz']
 # Application definition
 INSTALLED_APPS = [
     # Django apps
