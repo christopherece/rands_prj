@@ -58,13 +58,14 @@ CACHES = {
 # EMAIL CONFIGURATION
 # ------------------------------------------------------------------------------
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.sendgrid.net')
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'apikey')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
-EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 587))
-EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True') == 'True'
-DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'noreply@dskarans.com')
-SERVER_EMAIL = os.environ.get('SERVER_EMAIL', 'server@dskarans.com')
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'dnskaransltd@gmail.com'
+EMAIL_HOST_PASSWORD = 'ajlw nsfl ofjf fblg'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'dnskaransltd@gmail.com'
+CONTACT_EMAIL = 'temiong1234@gmail.com'
+SERVER_EMAIL = 'dnskaransltd@gmail.com'
 
 # LOGGING CONFIGURATION
 # ------------------------------------------------------------------------------

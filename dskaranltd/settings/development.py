@@ -57,6 +57,16 @@ SECURE_SSL_REDIRECT = False
 SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_SECURE = False
 
+# Email settings for Gmail SMTP
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+DEFAULT_FROM_EMAIL = 'dnskaransltd@gmail.com'
+CONTACT_EMAIL = 'temiong1234@gmail.com'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'dnskaransltd@gmail.com'
+EMAIL_HOST_PASSWORD = 'ajlw nsfl ofjf fblg'
+
 # Log all SQL queries
 LOGGING = {
     'version': 1,

@@ -117,7 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Pacific/Fiji'
+TIME_ZONE = 'Pacific/Auckland'
 
 USE_I18N = True
 

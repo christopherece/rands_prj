@@ -99,10 +99,7 @@ class ContactView(CreateView):
     success_url = reverse_lazy('core:contact')
     
     def form_valid(self, form):
-        # Save the contact message
-        response = super().form_valid(form)
-        
-        # Send email notification
+        # Send email notification first
         subject = f"New Contact Form Submission: {form.cleaned_data['subject']}"
         message = f"""
         Name: {form.cleaned_data['name']}
@@ -111,7 +108,14 @@ class ContactView(CreateView):
         Message:
         {form.cleaned_data['message']}
         """
-        
+        print('EMAIL_BACKEND:', settings.EMAIL_BACKEND)
+        print('DEFAULT_FROM_EMAIL:', settings.DEFAULT_FROM_EMAIL)
+        print('CONTACT_EMAIL:', settings.CONTACT_EMAIL)
+        print('EMAIL_HOST:', getattr(settings, 'EMAIL_HOST', None))
+        print('EMAIL_PORT:', getattr(settings, 'EMAIL_PORT', None))
+        print('EMAIL_HOST_USER:', getattr(settings, 'EMAIL_HOST_USER', None))
+        print('EMAIL_USE_TLS:', getattr(settings, 'EMAIL_USE_TLS', None))
+        print('EMAIL_HOST_PASSWORD:', getattr(settings, 'EMAIL_HOST_PASSWORD', None))
         send_mail(
             subject=subject,
             message=message,
@@ -120,12 +124,12 @@ class ContactView(CreateView):
             fail_silently=False,
         )
         
-        # Add success message
+        # Only save if email sent successfully
+        response = super().form_valid(form)
         messages.success(
             self.request,
             'Thank you for your message! We will get back to you soon.'
         )
-        
         return response
 
 
