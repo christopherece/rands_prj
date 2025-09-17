@@ -96,7 +96,7 @@ class ContactView(CreateView):
     model = ContactMessage
     template_name = 'core/contact.html'
     fields = ['name', 'email', 'subject', 'message']
-    success_url = reverse_lazy('contact')
+    success_url = reverse_lazy('core:contact')
     
     def form_valid(self, form):
         # Save the contact message

@@ -143,7 +143,7 @@
                 <h4 class="gold-text">Send Us a Message</h4>
                 <p>Have questions about our products or services? Fill out the form below and we'll get back to you as soon as possible.</p>
                 
-                <form method="post" class="contact-form">
+                <form method="post" class="contact-form" action="{% url 'core:contact' %}">
                     {% csrf_token %}
                     
                     {% if messages %}
