@@ -64,7 +64,7 @@ EMAIL_HOST_PASSWORD = 'ajlw nsfl ofjf fblg'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'dnskaransltd@gmail.com'
-CONTACT_EMAIL = 'temiong1234@gmail.com'
+CONTACT_EMAIL = 'Vikash_vinod@hotmail.com '
 SERVER_EMAIL = 'dnskaransltd@gmail.com'
 
 # LOGGING CONFIGURATION

@@ -147,7 +147,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 DEFAULT_FROM_EMAIL = 'dnskaransltd@gmail.com'
-CONTACT_EMAIL = 'temiong1234@gmail.com'
+CONTACT_EMAIL = 'Vikash_vinod@hotmail.com'
 SERVER_EMAIL = os.getenv('SERVER_EMAIL', 'server@dskarans.com')
 
 # SMTP Configuration (for production)
