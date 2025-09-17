@@ -4,6 +4,23 @@
 
 {% block extra_css %}
 <style>
+    /* Form input styling */
+    .contact-form input[type="text"],
+    .contact-form input[type="email"],
+    .contact-form textarea {
+        color: #ffffff !important;
+    }
+    
+    .contact-form input[type="text"]:focus + label,
+    .contact-form input[type="email"]:focus + label,
+    .contact-form textarea:focus + label {
+        color: #ffd700 !important;
+    }
+    
+    .contact-form .prefix {
+        color: #ffd700;
+    }
+    
     .contact-info {
         margin-top: 2rem;
     }
